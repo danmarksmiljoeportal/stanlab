@@ -2,7 +2,7 @@
 Stanlab is an open standard for exchanging laboratory related data between parties. The standard defines a set of service oriented data models and operations governed by Danmarks Miljøportal. The data models and service operations are designed as contract first/schema first by using the OpenAPI Specification (OAS), which provides a standard format to unify how an industry defines and describes RESTful APIs.
 
 The OpenAPI Specification is available on the following URL:
-https://stanlab-api.miljoeportal.dk/openapi/v1/swagger.json
+https://stanlab-api.test.miljoeportal.dk/openapi/v1/swagger.json
 
 ## Security and Authorization
 The are no requirements for authorization of Stanlab compatible services, however we recommend securing the services using OAuth 2.0, which is the industry-standard protocol for authorization of RESTful services.
