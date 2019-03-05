@@ -1,0 +1,1 @@
+nswag swagger2csclient /input:https://stanlab.test.miljoeportal.dk/openapi/v1/stanlab-gateway.json /classname:StanlabClient /namespace:Dmp.Examples.Stanlab /output:StanlabClient.cs
