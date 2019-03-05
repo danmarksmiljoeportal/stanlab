@@ -2,7 +2,7 @@
 Stanlab is an open standard for exchanging laboratory related data between parties. The standard defines a set of service oriented data models and operations governed by Danmarks Miljøportal. The data models and service operations are designed as contract first/schema first by using the OpenAPI Specification (OAS), which provides a standard format to unify how an industry defines and describes RESTful APIs.
 
 The OpenAPI Specification is available on the following URL:
-https://stanlab-api.test.miljoeportal.dk/openapi/v1/stanlab.json
+https://stanlab.test.miljoeportal.dk/openapi/v1/stanlab.json
 
 ## Security and Authorization
 The are no requirements for authorization of Stanlab compatible services, however we recommend securing the services using OAuth 2.0, which is the industry-standard protocol for authorization of RESTful services.
@@ -13,11 +13,13 @@ The Stanlab Gateway is a middleware that acts as a reverse proxy for redirecting
 Read more about reverse-proxy on Wikipedia https://en.wikipedia.org/wiki/Reverse_proxy.
 
 The Stanlab Gateway and a Swagger UI is available on the following URL:
-https://stanlab-api.test.miljoeportal.dk/swagger
+https://stanlab.test.miljoeportal.dk/swagger
 
+The following systems are currently registered in the Stanlab Gateway
 
-A list of the registered services can be found here:
-**comming soon**
+| System | Endpoint | Responsible          |
+| ------ | -------- | -------------------- |
+| PULS   | `puls`   | Danmarks Miljøportal |
 
 The Stanlab Gateway is secured using Danmarks Miljøportal's identity provider, that requires a set of client credentials. Please contact Danmarks Mlijøportal's support at support@miljoeportal.dk to get a client id and client secret for authorization.
 
