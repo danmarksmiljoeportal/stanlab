@@ -18,7 +18,7 @@ npm install nswag -g
 Open your terminal and enter the following command to generate the client code in the current directory. The command will generate one C# class file in the specified namespace
 
 ```
-nswag swagger2csclient /input:https://stanlab-api.demo.miljoeportal.dk/openapi/v1/stanlab-gateway.json /classname:StanlabClient /namespace:Dmp.Examples /output:StanlabClient.cs
+nswag swagger2csclient /input:https://stanlab.test.miljoeportal.dk/openapi/v1/stanlab-gateway.json /classname:StanlabClient /namespace:Dmp.Examples /output:StanlabClient.cs
 ```
 
 For more configuration, see the NSwag command line interface documentation.
