@@ -15,7 +15,7 @@ namespace Dmp.Examples.Stanlab
         public async static Task Run()
         {
             string stanlabAddress = "https://stanlab.test.miljoeportal.dk";
-            string autority = "https://log-in.test.miljoeportal.dk/runtime/oauth2";
+            string authority = "https://log-in.test.miljoeportal.dk/runtime/oauth2";
 
             string clientId = "** insert client id **";
             string clientSecret = "** insert client secret **";
@@ -24,7 +24,7 @@ namespace Dmp.Examples.Stanlab
 
             WriteConsoleInfo("Connection to PULS Stanlab 2.0");
             var client = new StanlabClient(stanlabAddress, httpClient);
-            await client.AddAuthorization(autority, clientId, clientSecret);
+            await client.AddAuthorization(authority, clientId, clientSecret);
 
             WriteConsoleInfo("Submitting sample");
             var sampleId = await SubmitTestSample(client);
@@ -64,6 +64,7 @@ namespace Dmp.Examples.Stanlab
                 Applicant = new Actor
                 {
                     Company = "DK29809577",
+                    Institution = 0,
                     Person = ""
                 },
                 
@@ -72,6 +73,7 @@ namespace Dmp.Examples.Stanlab
                     Sampler = new Actor
                     {
                         Company = "DK29809577",
+                        Institution = 0,
                         Person = "Christian Lykke"
                     },
                     
@@ -99,6 +101,7 @@ namespace Dmp.Examples.Stanlab
                         Executor = new Actor
                         {
                             Company = "DK29809577",
+                            Institution = 0,
                             Person = "Christian Lykke"
                         }
                     }
@@ -127,12 +130,14 @@ namespace Dmp.Examples.Stanlab
                 Applicant = new Actor
                 {
                     Company = "DK29809577",
+                    Institution = 0,
                     Person = ""
                 },
 
                 Laboratory = new Actor
                 {
                     Company = "DK29809577",
+                    Institution = 0,
                     Person = "Christian Lykke"
                 },
 
@@ -150,7 +155,7 @@ namespace Dmp.Examples.Stanlab
                     new Analysis
                     {
                         Parameter = 176, // BI5 modif. Biokemisk iltforbrug,modifificeret 5 døgn
-                        Fraction = 1, // Ingen separering
+                        Fraction = 1, // Total
 
                         Unit = 1, // mg/L
                         Method = 0, // Ikke oplyst
@@ -161,6 +166,7 @@ namespace Dmp.Examples.Stanlab
                         Laboratory = new Actor
                         {
                             Company = "DK29809577",
+                            Institution = 0,
                             Person = "Christian Lykke"
                         },
                         Accredited = true,

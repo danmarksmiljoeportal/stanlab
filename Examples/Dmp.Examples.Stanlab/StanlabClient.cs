@@ -554,6 +554,11 @@ namespace Dmp.Examples.Stanlab
         [Newtonsoft.Json.JsonProperty("person", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Person { get; set; }
     
+        /// <summary>Institution. Stancode list 1025</summary>
+        [Newtonsoft.Json.JsonProperty("institution", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public object Institution { get; set; }
+    
         public string ToJson() 
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
@@ -750,7 +755,7 @@ namespace Dmp.Examples.Stanlab
         [Newtonsoft.Json.JsonProperty("parameter", Required = Newtonsoft.Json.Required.Always)]
         public int Parameter { get; set; }
     
-        /// <summary>Fractioning method. Stancode list 1026</summary>
+        /// <summary>Sample fraction. Stancode list 1030</summary>
         [Newtonsoft.Json.JsonProperty("fraction", Required = Newtonsoft.Json.Required.Always)]
         public int Fraction { get; set; }
     
@@ -784,12 +789,12 @@ namespace Dmp.Examples.Stanlab
         public double DetectionLimit { get; set; }
     
         /// <summary>Relative uncertainty in percent, e.g. 0.10 for 10%</summary>
-        [Newtonsoft.Json.JsonProperty("relativeUncertainty", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double RelativeUncertainty { get; set; }
+        [Newtonsoft.Json.JsonProperty("relativeUncertainty", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? RelativeUncertainty { get; set; }
     
         /// <summary>Absolute uncertainty in the specified measurement unit, e.g. 2mg/L</summary>
-        [Newtonsoft.Json.JsonProperty("absoluteUncertainty", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double AbsoluteUncertainty { get; set; }
+        [Newtonsoft.Json.JsonProperty("absoluteUncertainty", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? AbsoluteUncertainty { get; set; }
     
         public string ToJson() 
         {
@@ -832,6 +837,9 @@ namespace Dmp.Examples.Stanlab
     
         [Newtonsoft.Json.JsonProperty("applicant", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public Actor Applicant { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("laboratory", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Actor Laboratory { get; set; }
     
         [Newtonsoft.Json.JsonProperty("registered", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset? Registered { get; set; }
@@ -942,7 +950,7 @@ namespace Dmp.Examples.Stanlab
         [Newtonsoft.Json.JsonProperty("parameter", Required = Newtonsoft.Json.Required.Always)]
         public int Parameter { get; set; }
     
-        /// <summary>Fractioning method. Stancode list 1026</summary>
+        /// <summary>Sample fraction. Stancode list 1030</summary>
         [Newtonsoft.Json.JsonProperty("fraction", Required = Newtonsoft.Json.Required.Always)]
         public int Fraction { get; set; }
     
@@ -963,8 +971,8 @@ namespace Dmp.Examples.Stanlab
         public double DetectionLimit { get; set; }
     
         /// <summary>Requirement for relative uncertainty in percent, e.g. 0.10 for 10%</summary>
-        [Newtonsoft.Json.JsonProperty("relativeUncertainty", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double RelativeUncertainty { get; set; }
+        [Newtonsoft.Json.JsonProperty("relativeUncertainty", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double? RelativeUncertainty { get; set; }
     
         public string ToJson() 
         {
