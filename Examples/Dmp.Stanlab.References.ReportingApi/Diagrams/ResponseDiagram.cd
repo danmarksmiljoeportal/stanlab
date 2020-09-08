@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.Sample">
+    <Position X="4" Y="2.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="LaboratoryTests" Type="Dmp.Stanlab.References.ReportingApi.Specifications.LaboratoryTest" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="5.213" />
+        <Point X="6.719" Y="5.213" />
+        <Point X="6.719" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Measurements" Type="Dmp.Stanlab.References.ReportingApi.Specifications.Measurement" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4" Y="5.213" />
+        <Point X="2.875" Y="5.213" />
+        <Point X="2.875" Y="6.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAEAAEAAAAAAIUAAAIAAAgAAAAIQgQQAAAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ObservationFacility" />
+      <Property Name="Sampling" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="LaboratoryTests" />
+      <Property Name="Measurements" />
+      <Property Name="Observations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.LaboratoryTest">
+    <Position X="6" Y="6.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Laboratory" Type="Dmp.Stanlab.References.ReportingApi.Specifications.Actor" FixedToPoint="true">
+      <Path>
+        <Point X="7.75" Y="7.125" />
+        <Point X="10.25" Y="7.125" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Applicant" Type="Dmp.Stanlab.References.ReportingApi.Specifications.Actor" FixedFromPoint="true">
+      <Path>
+        <Point X="7.75" Y="7.562" />
+        <Point X="10.25" Y="7.562" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAIACAAIAEAQAAEAQAAAACAAAAQAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Laboratory" />
+      <Property Name="Applicant" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Analyses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.Actor">
+    <Position X="10.25" Y="6.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.Measurement">
+    <Position X="2" Y="6.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAGAAQAIAAgAAAAAAAQQAAAAAAgAAAAAQA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.Observation">
+    <Position X="4" Y="6.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEAAAAAAAAAAAAAAAQAIAAAAAAAACAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.AnalysisResult">
+    <Position X="6" Y="9.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AIQAAAAQAAAGAQAAYAAgAAAAAAAQQAEAAAAgIAAAAQA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.ObservationFacility">
+    <Position X="0.75" Y="3.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAgAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dmp.Stanlab.References.ReportingApi.Specifications.Sampling">
+    <Position X="7" Y="3" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Sampler" Type="Dmp.Stanlab.References.ReportingApi.Specifications.Actor" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.281" Y="5.324" />
+        <Point X="8.281" Y="6.625" />
+        <Point X="10.25" Y="6.625" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAICEAAAAAgAgAAQAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\StanlabReportingApi.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sampler" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
