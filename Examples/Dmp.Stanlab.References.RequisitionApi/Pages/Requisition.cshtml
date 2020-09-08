@@ -1,0 +1,233 @@
+﻿@page
+@model Dmp.Stanlab.References.RequisitionApi.Pages.RequisitionModel
+
+<h2>@Model.Item.Reference</h2>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a asp-page="/Index">Requisitions</a></li>
+    <li class="breadcrumb-item active">@Model.Item.Reference</li>
+</ol>
+
+<hr>
+
+<div class="card border-light mb-3">
+    <div class="card-header">Requisition details</div>
+    <div class="card-body">
+        <div class="form-group">
+            <label class="control-label">Sample ID</label>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@Model.Item.Request.ReportingEndpoint</span>
+                    </div>
+                    <input type="text" class="form-control" asp-for="Item.Request.SampleId" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled>
+                <label class="control-label">Container references</label>
+                <input type="text" class="form-control" value="@string.Join(", ", Model.Item.Request.ContainerReferences)" disabled>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled>
+                <label class="control-label">Contract reference</label>
+                <input type="text" class="form-control" asp-for="Item.Request.ContractReference" disabled>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled>
+                <label class="control-label">Billing account reference</label>
+                <input type="text" class="form-control" asp-for="Item.Request.BillingAccountReference" disabled>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled>
+                <label class="control-label">Order reference</label>
+                <input type="text" class="form-control" asp-for="Item.Request.OrderReference" disabled>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <fieldset disabled>
+                <label class="control-label">Order line reference</label>
+                <input type="text" class="form-control" asp-for="Item.Request.OrderLineReference" disabled>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Storage time</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" asp-for="Item.Request.StorageTime" disabled>
+                    <div class="input-group-append">
+                        <span class="input-group-text">days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Remarks</label>
+            <textarea class="form-control" rows="3" disabled>@Model.Item.Request.Remarks</textarea>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Parameter</th>
+                    <th scope="col">Fraction</th>
+                    <th scope="col">Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var package in Model.Item.Request.Packages)
+                {
+                    <tr class="table-active">
+                        <td colspan="4">Analysis Package <span class="badge badge-info">@package.Fingerprint</span></td>
+                    </tr>
+
+                    @foreach (var analysis in package.Analyses)
+                    {
+                        <tr>
+                            <td><span class="badge badge-light">@analysis.Parameter</span></td>
+                            <td><span class="badge badge-light">@analysis.Fraction</span></td>
+                            <td><span class="badge badge-light">@analysis.Unit</span></td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-light mb-3">
+            <div class="card-header">Contact details</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Person</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.Contact.Person" disabled>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Phone</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.Contact.Phone" disabled>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Email</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.Contact.Email" disabled>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border-light mb-3">
+            <div class="card-header">Sampling contact details</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Person</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.SamplingContact.Person" disabled>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Phone</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.SamplingContact.Phone" disabled>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <fieldset disabled>
+                        <label class="control-label">Email</label>
+                        <input type="text" class="form-control" asp-for="Item.Request.SamplingContact.Email" disabled>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<h3>Notifications and Reporting</h3>
+    <p class="mb-4">Push notifications and submit laboratory tests using the Stanlab SDK</p>
+
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <h5>Requisition confirmed</h5>
+                    <p>The requisition was registered and has been confirmed by either the system or an employee.</p>
+
+                    <button class="btn btn-sm btn-info">Push notification</button>
+                </li>
+                <li class="list-group-item">
+                    <h5>Requisition canceled</h5>
+                    <p>The requisition was cancelled by the laboratory.</p>
+
+                    <button class="btn btn-sm btn-danger">Push notification</button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <h5>Sample registered</h5>
+                    <p>The sample was received physically and registered at the laboratory.</p>
+
+                    <button class="btn btn-sm btn-info">Push notification</button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <h5>Analysis started</h5>
+                    <p>An analysis has started.</p>
+
+                    <button class="btn btn-sm btn-info">Push notification</button>
+                </li>
+                <li class="list-group-item">
+                    <h5>Analysis finished</h5>
+                    <p>An analysis has finished and the preliminary analysis result is reported.</p>
+
+                    <button class="btn btn-sm btn-info">Push notification</button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <h5>Submit laboratory test</h5>
+                    <p>The analyses has finished and the results has been evaluated.</p>
+
+                    <button class="btn btn-sm btn-primary">Submit laboratory test</button>
+                </li>
+            </ul>
+        </div>
+    </div>*@
+
