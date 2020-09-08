@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 
-namespace Dmp.Examples.Stanlab
+namespace Dmp.Stanlab.Legacy.StanlabClient
 {
     public partial class StanlabClient
     {

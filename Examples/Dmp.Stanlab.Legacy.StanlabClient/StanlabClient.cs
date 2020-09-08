@@ -4,7 +4,7 @@
 // </auto-generated>
 //----------------------
 
-namespace Dmp.Examples.Stanlab
+namespace Dmp.Stanlab.Legacy.StanlabClient
 {
     #pragma warning disable
 

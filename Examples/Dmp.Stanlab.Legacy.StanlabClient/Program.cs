@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Dmp.Examples.Stanlab
+namespace Dmp.Stanlab.Legacy.StanlabClient
 {
     class Program
     {
