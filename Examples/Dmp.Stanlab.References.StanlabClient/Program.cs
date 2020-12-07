@@ -1,21 +1,25 @@
 ﻿using IdentityModel.Client;
+using IdentityModel.OidcClient;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace Dmp.Stanlab.References.StanlabClient
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Run().Wait();
+            // For third parties
+            await RunAuthorizationCodeExamples();
+
+            // For laboratories
+            //await RunClientCredentialsExamples();
         }
 
-        public async static Task Run()
+        public async static Task RunAuthorizationCodeExamples()
         {
             string stanlabAddress = "https://stanlab-api.test.miljoeportal.dk";
             string authority = "https://log-in.test.miljoeportal.dk/runtime/oauth2";
@@ -23,10 +27,107 @@ namespace Dmp.Stanlab.References.StanlabClient
             string clientId = "** insert client id **";
             string clientSecret = "** insert client secret **";
 
-            var client = new HttpClient();
+            string scope = "openid stanlab_read stanlab_write";
 
-            string accessToken = await GetAccessToken(client, authority, clientId, clientSecret);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            int port = 7890;
+
+            string redirectUri = string.Format($"http://127.0.0.1:{port}");
+
+            var options = new OidcClientOptions
+            {
+                Authority = authority,
+
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                RedirectUri = redirectUri,
+
+                Policy = new Policy
+                {
+                    Discovery = new DiscoveryPolicy
+                    {
+                        ValidateEndpoints = false
+                    }
+                },
+
+                Scope = scope,
+
+                Flow = OidcClientOptions.AuthenticationFlow.AuthorizationCode,
+                ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+
+                Browser = new SystemBrowser(port)
+            };
+
+            var oidcClient = new OidcClient(options);
+            var result = await oidcClient.LoginAsync(new LoginRequest());
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result.AccessToken);
+
+            WriteConsoleInfo("Connecting to Stanlab API");
+            var stanlab = new StanlabApi(stanlabAddress, client);
+
+            await GetPackages(stanlab);
+        }
+               
+        private static async Task GetPackages(StanlabApi stanlab)
+        {
+            var query = @"
+            {
+                analysisPackages {
+                    name
+                    matrix {
+                        value
+                    }
+                    analyses {
+                        parameter {
+                            value
+                        }
+                        fraction {
+                            value
+                        }
+                        unit {
+                            value
+                        }
+                    }
+                }
+            }";
+
+            var response = await stanlab.GraphQLAsync(new GraphQLQuery
+            {
+                Query = query
+            }) as dynamic;
+
+            foreach (var package in response.data.analysisPackages)
+            {
+                var name = package.name;
+                var matrix = package.matrix.value;
+                var analyses = package.analyses;
+
+                foreach (var analysis in analyses)
+                {
+                    var parameter = analysis.parameter.value;
+                    var fraction = analysis.fraction.value;
+                    var unit = analysis.unit.value;
+
+                    Console.WriteLine($"{name};{matrix};{parameter};{fraction};{unit}");
+                }
+            }
+        }
+
+        public async static Task RunClientCredentialsExamples()
+        {
+            string stanlabAddress = "https://stanlab-api.test.miljoeportal.dk";
+            string authority = "https://log-in.test.miljoeportal.dk/runtime/oauth2";
+
+            string clientId = "** insert client id **";
+            string clientSecret = "** insert client secret **";
+            string scope = "stanlab_read stanlab_write";
+
+            var tokenClient = new TokenClient(authority);
+            var token = await tokenClient.RequestClientCredentialsToken(clientId, clientSecret, scope);
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
 
             WriteConsoleInfo("Connecting to Stanlab API");
             var stanlab = new StanlabApi(stanlabAddress, client);
@@ -59,7 +160,7 @@ namespace Dmp.Stanlab.References.StanlabClient
             {
                 ObservationFacilityId = "396b071b-6488-485a-8d9e-bcff45079d56", // Renseanlæg: Hirtshals - Afløb
                 Location = "",
-                
+
                 Purpose = 1, // Egenkontrol
                 Type = 2, // Mængdeproportional prøve   
                 Matrix = 1, // Vand
@@ -73,15 +174,15 @@ namespace Dmp.Stanlab.References.StanlabClient
                         Company = "DK29809577",
                         Person = "Christian Lykke"
                     },
-                    
+
                     Method = 0, // Ikke oplyst
                     Equipment = 0, // Ikke oplyst
                     Remarks = "Prøven var meget uklar i forhold til hvad den plejer at være...",
-                    
-                    SamplingStarted = DateTime.Now,
-                    SamplingEnded = DateTime.Now.AddDays(1)
+
+                    SamplingStarted = DateTime.Now.AddDays(-2),
+                    SamplingEnded = DateTime.Now.AddDays(-1)
                 },
-                
+
                 Measurements = new List<Measurement>
                 {
                     new Measurement
@@ -90,7 +191,7 @@ namespace Dmp.Stanlab.References.StanlabClient
                         Unit = 33, // m3/d
                         Method = 0, // Ikke oplyst
                         Accredited = false,
-                        
+
                         Attribute = null,
                         Value = 12000,
 
@@ -129,9 +230,9 @@ namespace Dmp.Stanlab.References.StanlabClient
                     Company = "DK29809577",
                     Person = "Christian Lykke"
                 },
-                
+
                 Reference = "Rapport nr. 2018-0299123-22",
-                
+
                 Registered = DateTime.Now,
                 Finished = DateTime.Now,
 
@@ -151,7 +252,7 @@ namespace Dmp.Stanlab.References.StanlabClient
 
                         Attribute = null,
                         Value = 10,
-                        
+
                         Laboratory = "Miljøstyrelsens Laboratorium - DANAK 556",
                         Accredited = true,
 
@@ -159,12 +260,12 @@ namespace Dmp.Stanlab.References.StanlabClient
 
                         DetectionLimit = 0.1,
                         QuantificationLimit = 0.3,
-                        
+
                         RelativeUncertainty = 0.2,
                         AbsoluteUncertainty = 2
                     }
                 },
-                
+
                 Appendix = null
             };
 
@@ -179,50 +280,6 @@ namespace Dmp.Stanlab.References.StanlabClient
         public static async Task DeleteSample(StanlabApi stanlab, Guid sampleId)
         {
             await stanlab.DeleteSampleAsync("puls", sampleId);
-        }
-
-        private static async Task<string> GetAccessToken(HttpClient httpClient, string authority, string clientId, string clientSecret)
-        {
-            var tokenEndpoint = await GetTokenEndpoint(authority);
-
-            var response = await httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
-            {
-                Address = tokenEndpoint,
-
-                ClientId = clientId,
-                ClientSecret = clientSecret,
-
-                Scope = "stanlab_read stanlab_write"
-            });
-
-            if (response.IsError)
-            {
-                throw new UnauthorizedAccessException(response.Error);
-            }
-
-            return response.AccessToken;
-        }
-
-        private static async Task<string> GetTokenEndpoint(string authority)
-        {
-            var client = new HttpClient();
-
-            var discoveryDocument = await client.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
-            {
-                Address = authority,
-                Policy = new DiscoveryPolicy
-                {
-                    ValidateIssuerName = false,
-                    ValidateEndpoints = false
-                }
-            });
-
-            if (discoveryDocument.IsError)
-            {
-                throw new AuthenticationException(discoveryDocument.Error);
-            }
-
-            return discoveryDocument.TokenEndpoint;
         }
     }
 }
